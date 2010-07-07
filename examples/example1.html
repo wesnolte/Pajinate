@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>jQuery Pajinate - by Wes Nolte</title>
+		
+		<link type="text/css" rel="stylesheet" href="css/styles.css" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.pajinate.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('#paging_container1').pajinate();
+			});
+			
+			$(document).ready(function(){
+				$('#paging_container2').pajinate();
+			});		
+
+			$(document).ready(function(){
+				$('#paging_container3').pajinate({
+					items_per_page : 5,
+					item_container_id : '.alt_content',
+					nav_panel_id : '.alt_page_navigation'
+					
+				});
+			});	
+			
+			$(document).ready(function(){
+				$('#paging_container4').pajinate();
+			});	
+			
+			$(document).ready(function(){
+				$('#paging_container5').pajinate({
+					nav_label_first : '<<',
+					nav_label_last : '>>',
+					nav_label_prev : '<',
+					nav_label_next : '>'
+				});
+			});	
+			
+			$(document).ready(function(){
+				$('#paging_container6').pajinate({
+					start_page : 2,
+					items_per_page : 5	
+				});
+			});	
+			
+			$(document).ready(function(){
+				$('#paging_container7').pajinate({
+					num_page_links_to_display : 3,
+					items_per_page : 6	
+				});
+			});										
+		</script>
+
+	</head>
+	<body>
+		<h1>jQuery Pajinate</h1>		
+		
+		<div id="wrapper">
+			<div id="paging_container1" class="container">
+				<h2>Vanilla</h2>
+				<div class="page_navigation"></div>
+				
+				<ul class="content">
+					 <li><p>One</p></li> 
+					 <li><p>Two</p></li> 
+					 <li><p>Three</p></li> 
+					 <li><p>Four</p></li> 
+					 <li><p>Five</p></li> 
+					 <li><p>Six</p></li> 
+					 <li><p>Seven</p></li> 
+					 <li><p>Eight</p></li> 
+					 <li><p>Nine</p></li> 
+					 <li><p>Ten</p></li> 
+					 <li><p>Eleven</p></li> 
+					 <li><p>Twelve</p></li> 
+					 <li><p>Thirteen</p></li> 
+					 <li><p>Fourteen</p></li> 
+					 <li><p>Fifteen</p></li> 
+					 <li><p>Sixteen</p></li> 
+				</ul>	
+			</div>	
+			
+			<div id="paging_container3" class="container">
+				<h2>Custom List Size</h2>
+				<div class="alt_page_navigation"></div>
+				
+				<ul class="alt_content">
+					 <li><p>One</p></li> 
+					 <li><p>Two</p></li> 
+					 <li><p>Three</p></li> 
+					 <li><p>Four</p></li> 
+					 <li><p>Five</p></li> 
+					 <li><p>Six</p></li> 
+					 <li><p>Seven</p></li> 
+					 <li><p>Eight</p></li> 
+					 <li><p>Nine</p></li> 
+					 <li><p>Ten</p></li> 
+					 <li><p>Eleven</p></li> 
+					 <li><p>Twelve</p></li> 
+					 <li><p>Thirteen</p></li> 
+					 <li><p>Fourteen</p></li> 
+					 <li><p>Fifteen</p></li> 
+					 <li><p>Sixteen</p></li> 
+				</ul>	
+				
+			</div>
+			
+			
+			<div id="paging_container2" class="container">
+				<h2>Two Nav Panels</h2>
+				<div class="page_navigation"></div>
+				
+				<ul class="content">
+					 <li><p>One</p></li> 
+					 <li><p>Two</p></li> 
+					 <li><p>Three</p></li> 
+					 <li><p>Four</p></li> 
+					 <li><p>Five</p></li> 
+					 <li><p>Six</p></li> 
+					 <li><p>Seven</p></li> 
+					 <li><p>Eight</p></li> 
+					 <li><p>Nine</p></li> 
+					 <li><p>Ten</p></li> 
+					 <li><p>Eleven</p></li> 
+					 <li><p>Twelve</p></li> 
+					 <li><p>Thirteen</p></li> 
+					 <li><p>Fourteen</p></li> 
+					 <li><p>Fifteen</p></li> 
+					 <li><p>Sixteen</p></li> 
+				</ul>	
+				
+				<div class="page_navigation"></div>
+				
+			</div>	
+
+			
+			<div id="paging_container6" class="container">
+				<h2>Custom Start Page</h2>
+				<div class="page_navigation"></div>
+				
+				<ul class="content">
+					 <li><p>One</p></li> 
+					 <li><p>Two</p></li> 
+					 <li><p>Three</p></li> 
+					 <li><p>Four</p></li> 
+					 <li><p>Five</p></li> 
+					 <li><p>Six</p></li> 
+					 <li><p>Seven</p></li> 
+					 <li><p>Eight</p></li> 
+					 <li><p>Nine</p></li> 
+					 <li><p>Ten</p></li> 
+					 <li><p>Eleven</p></li> 
+					 <li><p>Twelve</p></li> 
+					 <li><p>Thirteen</p></li> 
+					 <li><p>Fourteen</p></li> 
+					 <li><p>Fifteen</p></li> 
+					 <li><p>Sixteen</p></li> 
+				</ul>	
+				
+			</div>					
+			
+			<div id="paging_container4" class="container">
+				<h2>Mixed List Element Types</h2>
+				<div class="page_navigation"></div>
+				
+				<div class="content">
+					 <p>One</p> 
+					 <span style="font-size:18px">Two</span> 
+					 <p>Three</p> 
+					 <p>Four</p> 
+					 <p>Five</p> 
+					 <p>Six</p> 
+					 <div style="color: red">Seven</div> 
+					 <p>Eight</p> 
+					 <a href="#">Nine</a> 
+					 <p>Ten</p> 
+					 <p>Eleven</p> 
+					 <p>Twelve</p> 
+					 <p>Thirteen</p> 
+					 <p>Fourteen</p> 
+					 <p>Fifteen</p> 
+					 <p>Sixteen</p> 
+				</div>	
+				
+			</div>	
+			
+			<div id="paging_container5" class="container">
+				<h2>Custom Navigation Labels</h2>
+				<div class="page_navigation"></div>
+				
+				<ul class="content">
+					 <li><p>One</p></li> 
+					 <li><p>Two</p></li> 
+					 <li><p>Three</p></li> 
+					 <li><p>Four</p></li> 
+					 <li><p>Five</p></li> 
+					 <li><p>Six</p></li> 
+					 <li><p>Seven</p></li> 
+					 <li><p>Eight</p></li> 
+					 <li><p>Nine</p></li> 
+					 <li><p>Ten</p></li> 
+					 <li><p>Eleven</p></li> 
+					 <li><p>Twelve</p></li> 
+					 <li><p>Thirteen</p></li> 
+					 <li><p>Fourteen</p></li> 
+					 <li><p>Fifteen</p></li> 
+					 <li><p>Sixteen</p></li> 
+				</ul>	
+				
+			</div>		
+			
+			<div id="paging_container7" class="container">
+				<h2>Show Subset of Page Links</h2>
+				<div class="page_navigation"></div>
+				
+				<ul class="content">
+					 <li><p>One</p></li> 
+					 <li><p>Two</p></li> 
+					 <li><p>Three</p></li> 
+					 <li><p>Four</p></li> 
+					 <li><p>Five</p></li> 
+					 <li><p>Six</p></li> 
+					 <li><p>Seven</p></li> 
+					 <li><p>Eight</p></li> 
+					 <li><p>Nine</p></li> 
+					 <li><p>Ten</p></li> 
+					 <li><p>Eleven</p></li> 
+					 <li><p>Twelve</p></li> 
+					 <li><p>Thirteen</p></li> 
+					 <li><p>Fourteen</p></li> 
+					 <li><p>Fifteen</p></li> 
+					 <li><p>Sixteen</p></li> 
+					 <li><p>Seventeen</p></li> 
+					 <li><p>Eightteen</p></li> 
+					 <li><p>Nineteen</p></li> 
+					 <li><p>Twintig</p></li> 
+					 <li><p>Een en Twintig</p></li> 
+					 <li><p>Twee en Twintig</p></li> 
+					 <li><p>Dree en Twintig</p></li> 
+					 <li><p>Vier en Twintig</p></li> 
+					 <li><p>Fyf en Twintig</p></li> 
+					 <li><p>Twenty Six</p></li> 
+					 <li><p>Twenty Seven</p></li> 
+					 <li><p>Twenty Eight</p></li> 
+					 <li><p>Twenty Nine</p></li> 
+					 <li><p>Dertig</p></li> 
+					 <li><p>Een en Dertig</p></li> 
+					 <li><p>Twee en Dertig</p></li> 					 
+				</ul>	
+				
+			</div>										
+		
+		</div>
+		
+		<script>
+			$(document).ready(function(){
+				$('li:odd, .content > *:odd').css('background-color','#FFD9BF');
+			});
+		</script>
+	
+	</body>
+</html>

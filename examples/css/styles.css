@@ -1,0 +1,99 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	font-family: Verdana;
+	font-size: 12px;
+	background-color: black;
+	text-align: center;
+	height: 100%;
+}
+
+div{
+	overflow: auto;
+}
+
+h1, h2 {
+	font-family: Georgia;
+	font-style: italic;
+}
+
+h2{
+	font-size: 16px;	
+	color: #333333;
+	padding-bottom: 5px;
+}
+
+h1{
+	padding: 10px;
+	font-size: 36px;
+	color: white;
+}
+
+li{
+	list-style: none;	
+}
+
+#wrapper{
+	margin: 0px auto;
+	text-align: left;
+	width: 960px;
+}
+
+#paging_container1{
+	height: 320px;	
+}
+
+#paging_container2{
+	height: 356px;	
+}
+
+#paging_container3{
+	height: 190px;
+}
+
+#paging_container4{
+	height: 307px;	
+	overflow: hidden;
+}
+
+.ellipse{
+	float: left;
+}
+
+.container{
+	width: 260px;
+	float: left;
+	margin: 50px 10px 10px;
+	padding: 20px;
+	background-color: white;
+}
+
+.page_navigation , .alt_page_navigation{
+	padding-bottom: 10px;
+}
+
+.page_navigation a, .alt_page_navigation a{
+	padding:3px 5px;
+	margin:2px;
+	color:white;
+	text-decoration:none;
+	float: left;
+	font-family: Tahoma;
+	font-size: 12px;
+	background-color:#DB5C04;
+}
+.active_page{
+	background-color:white !important;
+	color:black !important;
+}	
+
+.content, .alt_content{
+	color: black;
+}
+
+.content li, .alt_content li, .content > p{
+	padding: 5px
+}

@@ -1,0 +1,18 @@
+Pajinate 0.2 (released 2010-04-22)
+
+This version is a minor update. The following new feature were added:
+
+	*	New option 'num_page_links_to_display' which determines how many page numbers to display in the navigation panel. 
+		Default is 20.
+	*	New option 'start_page' which determines which paginated page to display first. 
+		Default is 0.
+	*	New options 'nav_label_first', 'nav_label_prev', 'nav_label_next', 'nav_label_last' which determine the value of the labels in the navigation panel.
+		Defaults are 'First', 'Prev', 'Next', 'Last'.
+	*	New methods added to move the pages numbers shown in the navigation panel to the left or right if we want to move to a page not displayed in the page index list.
+	*	New visual cues have been added which represent whether more page numbers exist but are not currently displayed in the index list. 
+		The cues take the form of ellipses either on the left or right or both of the currently displayed page index numbers.
+		
+In addition to this the following items were fixed:
+
+	*	Hiding and showing page items was enhanced in that instead of using 'display: block' to restore the visibility of an item, it is instead restored to have it's previous CSS
+		'display' value.
