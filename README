@@ -1,0 +1,98 @@
+Pajinate - jQuery Pagination Plugin
+Author: 		Wesley Nolte
+
+DEFAULT USAGE
+---------------------------------
+1) Place pajinate-x.x folder somewhere in your website directory structure.
+2) Include script tags for the desired version of the script. 
+3) Create at least one <div> in your HTML with a CSS class value of "page_navigation". The navigation links will be 
+attached to these divs.
+4) Ensure that all items you would like to page through are all the first-children of an HTML element with a CSS 
+class value of "content". The child-elements can be of any tag type.
+5) Call the Pajinate plugin with the function call below:
+
+	$('#id_of_page_container').pajinate();
+
+  '#id_of_page_container' should contain the "page_navigation" and "content" elements.
+	
+
+HTML MARKUP REQUIREMENTS
+---------------------------------
+Paging through lists of items requires some basic HTML markup, some examples follow,
+
+1) 	Basic Paging.
+
+		<div id="page_container">
+			<div class="page_navigation"></div>		
+
+			<ul class="content">
+				<li> <p>One</p> </li>
+				<li> <p>Two</p> </li>
+				<li> <p>Three</p> </li>
+				<li> <p>Four</p> </li>
+				<li> <p>Five</p> </li>
+				<li> <p>Six</p> </li>
+				<li> <p>Seven</p> </li>
+				<li> <p>Eight</p> </li>
+			</ul>
+				
+		</div>
+	
+	This is the simplest type of paging one can have. With all the default options set, the following actions occur 
+	within the plugin (among other things):
+		- The list of items inside '.content' are divided into slices.
+		- The navigation panel is created at attached to the '.page_navigation' element.
+		- The first page is displayed and all others hidden.
+
+	When Pajination is done processing the DIV above, the DOM is modified to look like this:
+
+		<div id="page_container">
+			<div class="page_navigation">
+				<a href="" class="previous_link">Prev</a>
+				<a longdesc="0" href="" class="page_link">1</a>
+				<a longdesc="1" href="" class="page_link active_page">2</a>
+				<a href="" class="next_link">Next</a>
+			</div>
+
+			<ul class="content">
+				 <li><p>One</p></li> 
+				 <li><p>Two</p></li> 
+				 <li><p>Three</p></li> 
+				 <li><p>Four</p></li> 
+				 <li><p>Five</p></li> 
+				 <li><p>Six</p></li> 
+				 <li><p>Seven</p></li> 
+				 <li><p>Eight</p></li> 
+				 <li><p>Nine</p></li> 
+				 <li><p>Ten</p></li> 
+				 <li><p>Eleven</p></li> 
+				 <li><p>Twelve</p></li> 
+				 <li><p>Thirteen</p></li> 
+				 <li><p>Fourteen</p></li> 
+				 <li><p>Fifteen</p></li> 
+				 <li><p>Sixteen</p></li>
+			</ul>
+		</div>
+	
+	Note the links that have been added to #page_navigation.
+	
+2)	Advanced Paging
+
+	The plugin offers several initialisation options:
+	
+		items_per_page : A number which determines the maximum number of items to show on any 'page'. [default = 10]
+		item_container_id : The ID or CLASSNAME of the element that contains all the list items. [default = '.content']
+		nav_panel_id : The ID or CLASSNAME of the element(s) that host the navigation links. [default = '.page_navigation']
+		num_page_links_to_display : The number of page links to display at one time i.e. if you have a total of 20 page links
+					    but only want to display 3 at a time set this value to 3. [default = 20]
+		start_page : The page number you'd like to display first [default = 0]
+		nav_label_first : The label for the link that navigates to the first paginated page. [default = 'First']
+		nav_label_prev : The label for the link that navigates to the previous paginated page. [default = 'Prev']
+		nav_label_next : The label for the link that navigates to the next paginated page. [default = 'Next']
+		nav_label_last : The label for the link that navigates to the last paginated page. [default = 'Last']
+
+	Note that you can add any element tag to the list of pageable items.
+
+Drop me a message if you have any questions or comments:
+
+twitter (@weesildotn) 
