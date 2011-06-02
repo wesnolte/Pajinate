@@ -1,4 +1,8 @@
-Pajinate (released 2011-05-31)
+2011-06-02
+
+	*	New option 'ajax_data' which allows you to pass extra data into the ajax method.
+
+2011-05-31
 
 	*	New option 'ajax_url' which you can use to get data.
 	*	New option 'ajax_success' which is called upon successful completion of the ajax call. You pass this a function of the form function (data) { ... } where data is what was returned.

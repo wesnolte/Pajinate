@@ -28,6 +28,7 @@
             nav_label_next: 'Next',
             nav_label_last: 'Last',
             ajax_url: '',
+            ajax_data: '',
             ajax_success: '',
             ajax_error: '',
             total_items: 0,
@@ -182,12 +183,20 @@
 				    .show();
             }
             else {
+                data = {
+                    pageNum: page_num,
+                    itemsPerPage: options.items_per_page
+                }
+                
+                if (options.ajax_data != '') {
+                    for(attr in options.ajax_data) {
+                        data[attr] = options.ajax_data[attr];
+                    }
+                }
+            
                 $.ajax({
                     url: options.ajax_url,
-                    data: {
-                        pageNum: page_num,
-                        itemsPerPage: options.items_per_page
-                    },
+                    data: data,
                     success: function(data) {
                         options.ajax_success(data);
                     },
