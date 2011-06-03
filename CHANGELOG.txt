@@ -1,3 +1,7 @@
+2011-06-03
+
+	*	New option 'hide_nav_if_zero_items' which will hide the navigation if there are zero items to be paged. The building of the navigation html is also skipped if this property is set to true and there are zero items.
+
 2011-06-02
 
 	*	New option 'ajax_data' which allows you to pass extra data into the ajax method.

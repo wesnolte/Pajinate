@@ -11,33 +11,33 @@
 
     $.fn.pajinate = function(options) {
         // Set some state information
-        var current_page = 'current_page';
-        var items_per_page = 'items_per_page';
-
-        var meta;
+        var current_page = 'current_page',
+            items_per_page = 'items_per_page',
+            meta,
 
         // Setup default option values
-        var defaults = {
-            item_container_id: '.content',
-            items_per_page: 10,
-            nav_panel_id: '.page_navigation',
-            num_page_links_to_display: 20,
-            start_page: 0,
-            nav_label_first: 'First',
-            nav_label_prev: 'Prev',
-            nav_label_next: 'Next',
-            nav_label_last: 'Last',
-            ajax_url: '',
-            ajax_data: '',
-            ajax_success: '',
-            ajax_error: '',
-            total_items: 0,
-        };
-        var options = $.extend(defaults, options);
-        var $item_container;
-        var $page_container;
-        var $items;
-        var $nav_panels;
+            defaults = {
+                item_container_id: '.content',
+                items_per_page: 10,
+                nav_panel_id: '.page_navigation',
+                num_page_links_to_display: 20,
+                start_page: 0,
+                nav_label_first: 'First',
+                nav_label_prev: 'Prev',
+                nav_label_next: 'Next',
+                nav_label_last: 'Last',
+                ajax_url: '',
+                ajax_data: '',
+                ajax_success: '',
+                ajax_error: '',
+                total_items: 0,
+                hide_nav_if_zero_items: false
+            },
+            options = $.extend(defaults, options),
+            $item_container,
+            $page_container,
+            $items,
+            $nav_panels;
 
         return this.each(function() {
             $page_container = $(this);
@@ -51,101 +51,108 @@
 
             // Get the total number of items
             var total_items = 0;
-            if(options.ajax_url != '') {
+            if (options.ajax_url != '') {
                 total_items = options.total_items;
             }
             else {
                 total_items = $item_container.children().size();
             }
 
-            // Calculate the number of pages needed
-            var number_of_pages = Math.ceil(total_items / options.items_per_page);
-
-            // Construct the nav bar
-            var more = '<a class="ellipse more">...</a>';
-            var less = '<a class="ellipse less">...</a>';
-
-            var navigation_html = '<a class="first_link" href="">' + options.nav_label_first + '</a>';
-            navigation_html += '<a class="previous_link" href="">' + options.nav_label_prev + '</a>' + less;
-            var current_link = 0;
-            while (number_of_pages > current_link) {
-                navigation_html += '<a class="page_link" href="" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
-                current_link++;
+            // This will skip constructing the navigation if there are no items
+            if (options.hide_nav_if_zero_items && total_items == 0) {
+                $(options.nav_panel_id).hide();
             }
-            navigation_html += more + '<a class="next_link" href="">' + options.nav_label_next + '</a>';
-            navigation_html += '<a class="last_link" href="">' + options.nav_label_last + '</a>';
+            else {
+                // Calculate the number of pages needed
+                var number_of_pages = Math.ceil(total_items / options.items_per_page);
 
-            // And add it to the appropriate area of the DOM	
-            $nav_panels = $page_container.find(options.nav_panel_id);
-            $nav_panels.html(navigation_html).each(function() {
-                $(this).find('.page_link:first').addClass('first');
-                $(this).find('.page_link:last').addClass('last');
-            });
+                // Construct the nav bar
+                var more = '<a class="ellipse more">...</a>';
+                var less = '<a class="ellipse less">...</a>';
 
-            // Hide the more/less indicators
-            $nav_panels.children('.ellipse').hide();
+                var navigation_html = '<a class="first_link" href="">' + options.nav_label_first + '</a>';
+                navigation_html += '<a class="previous_link" href="">' + options.nav_label_prev + '</a>' + less;
+                var current_link = 0;
+                while (number_of_pages > current_link) {
+                    navigation_html += '<a class="page_link" href="" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
+                    current_link++;
+                }
+                navigation_html += more + '<a class="next_link" href="">' + options.nav_label_next + '</a>';
+                navigation_html += '<a class="last_link" href="">' + options.nav_label_last + '</a>';
 
-            // Set the active page link styling
-            $nav_panels.find('.previous_link').next().next().addClass('active_page');
+                // And add it to the appropriate area of the DOM	
+                $nav_panels = $page_container.find(options.nav_panel_id);
+                $nav_panels.html(navigation_html).each(function() {
+                    var page_links = $(this).find('.page_link');
+                    page_links.first().addClass('first');
+                    page_links.last().addClass('last');
+                });
 
-            /* Setup Page Display */
-            // And hide all pages
-            $items.hide();
-            // Show the first page			
-            $items.slice(0, meta.data(items_per_page)).show();
+                // Hide the more/less indicators
+                $nav_panels.children('.ellipse').hide();
 
-            /* Setup Nav Menu Display */
-            // Page number slices
+                // Set the active page link styling
+                $nav_panels.find('.previous_link').next().next().addClass('active_page');
 
-            var total_page_no_links = $page_container.children(options.nav_panel_id + ':first').children('.page_link').size();
-            options.num_page_links_to_display = Math.min(options.num_page_links_to_display, total_page_no_links);
+                /* Setup Page Display */
+                // And hide all pages
+                $items.hide();
+                // Show the first page			
+                $items.slice(0, meta.data(items_per_page)).show();
 
-            $nav_panels.children('.page_link').hide(); // Hide all the page links
+                /* Setup Nav Menu Display */
+                // Page number slices
 
-            // And only show the number we should be seeing
-            $nav_panels.each(function() {
-                $(this).children('.page_link').slice(0, options.num_page_links_to_display).show();
-            });
+                var total_page_no_links = $page_container.children(options.nav_panel_id).first().children('.page_link').size();
+                options.num_page_links_to_display = Math.min(options.num_page_links_to_display, total_page_no_links);
 
-            /* Bind the actions to their respective links */
+                $nav_panels.children('.page_link').hide(); // Hide all the page links
 
-            // Event handler for 'First' link
-            $page_container.find('.first_link').click(function(e) {
-                e.preventDefault();
+                // And only show the number we should be seeing
+                $nav_panels.each(function() {
+                    $(this).children('.page_link').slice(0, options.num_page_links_to_display).show();
+                });
 
-                movePageNumbersRight($(this), 0);
-                gotoPage(0);
-            });
+                toggleMoreLess();
 
-            // Event handler for 'Last' link
-            $page_container.find('.last_link').click(function(e) {
-                e.preventDefault();
-                var lastPage = total_page_no_links - 1;
-                movePageNumbersLeft($(this), lastPage);
-                gotoPage(lastPage);
-            });
+                /* Bind the actions to their respective links */
 
-            // Event handler for 'Prev' link
-            $page_container.find('.previous_link').click(function(e) {
-                e.preventDefault();
-                showPrevPage($(this));
-            });
+                // Event handler for 'First' link
+                $page_container.find('.first_link').click(function(e) {
+                    e.preventDefault();
+                    movePageNumbersRight($(this), 0);
+                    gotoPage(0);
+                });
 
-            // Event handler for 'Next' link
-            $page_container.find('.next_link').click(function(e) {
-                e.preventDefault();
-                showNextPage($(this));
-            });
+                // Event handler for 'Last' link
+                $page_container.find('.last_link').click(function(e) {
+                    e.preventDefault();
+                    var lastPage = total_page_no_links - 1;
+                    movePageNumbersLeft($(this), lastPage);
+                    gotoPage(lastPage);
+                });
 
-            // Event handler for each 'Page' link
-            $page_container.find('.page_link').click(function(e) {
-                e.preventDefault();
-                gotoPage($(this).attr('longdesc'));
-            });
+                // Event handler for 'Prev' link
+                $page_container.find('.previous_link').click(function(e) {
+                    e.preventDefault();
+                    showPrevPage($(this));
+                });
+
+                // Event handler for 'Next' link
+                $page_container.find('.next_link').click(function(e) {
+                    e.preventDefault();
+                    showNextPage($(this));
+                });
+
+                // Event handler for each 'Page' link
+                $page_container.find('.page_link').click(function(e) {
+                    e.preventDefault();
+                    gotoPage($(this).attr('longdesc'));
+                });
+            }
 
             // gotoPage the required page
             gotoPage(parseInt(options.start_page));
-            toggleMoreLess();
         });
 
         function showPrevPage(e) {
@@ -176,7 +183,7 @@
 
             // Find the end of the next slice
             end_on = start_from + ipp;
-            if(options.ajax_url == '') {
+            if (options.ajax_url == '') {
                 // Hide the current page
                 $items.hide()
 				    .slice(start_from, end_on)
@@ -187,13 +194,13 @@
                     pageNum: page_num,
                     itemsPerPage: options.items_per_page
                 }
-                
+
                 if (options.ajax_data != '') {
-                    for(attr in options.ajax_data) {
+                    for (attr in options.ajax_data) {
                         data[attr] = options.ajax_data[attr];
                     }
                 }
-            
+
                 $.ajax({
                     url: options.ajax_url,
                     data: data,
