@@ -258,16 +258,18 @@
 
         // Show or remove the ellipses that indicate that more page numbers exist in the page index than are currently shown
         function toggleMoreLess() {
-            if (!$nav_panels.children('.page_link:visible').hasClass('last')) {
-                $nav_panels.children('.more').show();
-            } else {
-                $nav_panels.children('.more').hide();
-            }
+            if (typeof($nav_panels) != 'undefined' && $nav_panels != null) {
+                if (!$nav_panels.children('.page_link:visible').hasClass('last')) {
+                    $nav_panels.children('.more').show();
+                } else {
+                    $nav_panels.children('.more').hide();
+                }
 
-            if (!$nav_panels.children('.page_link:visible').hasClass('first')) {
-                $nav_panels.children('.less').show();
-            } else {
-                $nav_panels.children('.less').hide();
+                if (!$nav_panels.children('.page_link:visible').hasClass('first')) {
+                    $nav_panels.children('.less').show();
+                } else {
+                    $nav_panels.children('.less').hide();
+                }
             }
         }
     };
