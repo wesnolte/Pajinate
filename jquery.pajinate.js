@@ -27,6 +27,7 @@
                 nav_label_next: 'Next',
                 nav_label_last: 'Last',
                 ajax_url: '',
+                ajax_skip_first: false,
                 ajax_data: '',
                 ajax_success: '',
                 ajax_error: '',
@@ -37,7 +38,8 @@
             $item_container,
             $page_container,
             $items,
-            $nav_panels;
+            $nav_panels,
+            first_load = true;
 
         return this.each(function() {
             $page_container = $(this);
@@ -151,8 +153,11 @@
                 });
             }
 
-            // gotoPage the required page
-            gotoPage(parseInt(options.start_page));
+            if (!(options.ajax_skip_first && first_load)) {
+                gotoPage(parseInt(options.start_page));
+            }
+            
+            first_load = false;
         });
 
         function showPrevPage(e) {
@@ -258,7 +263,7 @@
 
         // Show or remove the ellipses that indicate that more page numbers exist in the page index than are currently shown
         function toggleMoreLess() {
-            if (typeof($nav_panels) != 'undefined' && $nav_panels != null) {
+            if (typeof ($nav_panels) != 'undefined' && $nav_panels != null) {
                 if (!$nav_panels.children('.page_link:visible').hasClass('last')) {
                     $nav_panels.children('.more').show();
                 } else {
