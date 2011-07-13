@@ -138,6 +138,7 @@
 			// Goto the required page
 			goto(parseInt(options.start_page));
 			toggleMoreLess();
+			tagNextPrev();
 		});
 		
 		function showPrevPage(e){
@@ -188,6 +189,9 @@
 			
 			// Hide the more and/or less indicators
 			toggleMoreLess();
+			
+			// Add a class to the next or prev links if there are no more pages next or previous to the active page
+			tagNextPrev();
 		};	
 		
 		// Methods to shift the diplayed index of page numbers to the left or right
@@ -238,6 +242,20 @@
 			}else {
 				$nav_panels.children('.less').hide();
 			}			
+		}
+		
+		function tagNextPrev() {
+			if($nav_panels.children('.last').hasClass('active_page')){
+				$nav_panels.children('.next_link').addClass('no_more');
+			} else {
+				$nav_panels.children('.next_link').removeClass('no_more');
+			}
+			
+			if($nav_panels.children('.first').hasClass('active_page')){
+				$nav_panels.children('.previous_link').addClass('no_more');
+			} else {
+				$nav_panels.children('.previous_link').removeClass('no_more');
+			}
 		}
 		
 	};
