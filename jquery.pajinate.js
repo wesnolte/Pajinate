@@ -23,6 +23,7 @@
 			nav_panel_id : '.page_navigation',
 			num_page_links_to_display : 20,			
 			start_page : 0,
+			wrap_around : false,
 			nav_label_first : 'First',
 			nav_label_prev : 'Prev',
 			nav_label_next : 'Next',
@@ -159,6 +160,8 @@
 			if($(e).siblings('.active_page').next('.page_link').length==true){		
 				movePageNumbersLeft(e,new_page);
 				goto(new_page);
+			} else if (options.wrap_around) {
+				goto(0);
 			}
 				
 		};
