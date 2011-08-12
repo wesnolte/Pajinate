@@ -80,18 +80,18 @@ Paging through lists of items requires some basic HTML markup, some examples fol
 
 	The plugin offers several initialisation options:
 	
-		items_per_page : A number which determines the maximum number of items to show on any 'page'. [default = 10]
-		item_container_id : The ID or CLASSNAME of the element that contains all the list items. [default = '.content']
-		nav_panel_id : The ID or CLASSNAME of the element(s) that host the navigation links. [default = '.page_navigation']
-		num_page_links_to_display : The number of page links to display at one time i.e. if you have a total of 20 page links
-					    but only want to display 3 at a time set this value to 3. [default = 20]
-		start_page : The page number you'd like to display first [default = 0]
-		nav_label_first : The label for the link that navigates to the first paginated page. [default = 'First']
-		nav_label_prev : The label for the link that navigates to the previous paginated page. [default = 'Prev']
-		nav_label_next : The label for the link that navigates to the next paginated page. [default = 'Next']
-		nav_label_last : The label for the link that navigates to the last paginated page. [default = 'Last']
-        wrap_around : Next/prev navigation wraps. [default = false]
-        show_first_last : Prevents first & last navigation links from loading if set to false. [default = true]
+    items_per_page : A number which determines the maximum number of items to show on any 'page'. [default = 10]
+    item_container_id : The ID or CLASSNAME of the element that contains all the list items. [default = '.content']
+    nav_panel_id : The ID or CLASSNAME of the element(s) that host the navigation links. [default = '.page_navigation']
+    num_page_links_to_display : The number of page links to display at one time i.e. if you have a total of 20 page links
+    but only want to display 3 at a time set this value to 3. [default = 20]
+    start_page : The page number you'd like to display first [default = 0]
+    nav_label_first : The label for the link that navigates to the first paginated page. [default = 'First']
+    nav_label_prev : The label for the link that navigates to the previous paginated page. [default = 'Prev']
+    nav_label_next : The label for the link that navigates to the next paginated page. [default = 'Next']
+    nav_label_last : The label for the link that navigates to the last paginated page. [default = 'Last']
+    wrap_around : Next/prev navigation wraps. [default = false]
+    show_first_last : Prevents first & last navigation links from loading if set to false. [default = true]
 
     A style class called 'no_more' is added to the first/prev links if the first link is active and similarly for the last/next links. This allows you to give these links a "disabled" appearance if required.
 
