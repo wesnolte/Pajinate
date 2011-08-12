@@ -155,7 +155,7 @@
 			if($(e).siblings('.active_page').prev('.page_link').length==true){
 				movePageNumbersRight(e,new_page);
 				goto(new_page);
-			}else{
+			}else if(options.wrap_around){
                 goto(total_page_no_links-1);   
 			}
 				

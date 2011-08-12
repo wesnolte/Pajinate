@@ -11,7 +11,7 @@
 
     $.fn.pajinate = function(options){
         // Set some state information
-		var current_page = 'current_page';
+        var current_page = 'current_page';
 		var items_per_page = 'items_per_page';
 		
 		var meta;
@@ -155,7 +155,7 @@
 			if($(e).siblings('.active_page').prev('.page_link').length==true){
 				movePageNumbersRight(e,new_page);
 				goto(new_page);
-			}else{
+			}else if(options.wrap_around){
                 goto(total_page_no_links-1);   
 			}
 				
