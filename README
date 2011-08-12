@@ -90,8 +90,12 @@ Paging through lists of items requires some basic HTML markup, some examples fol
 		nav_label_prev : The label for the link that navigates to the previous paginated page. [default = 'Prev']
 		nav_label_next : The label for the link that navigates to the next paginated page. [default = 'Next']
 		nav_label_last : The label for the link that navigates to the last paginated page. [default = 'Last']
+        wrap_around : Next/prev navigation wraps. [default = false]
+        show_first_last : Prevents first & last navigation links from loading if set to false. [default = true]
 
-	Note that you can add any element tag to the list of pageable items.
+    A style class called 'no_more' is added to the first/prev links if the first link is active and similarly for the last/next links. This allows you to give these links a "disabled" appearance if required.
+
+	Note that you can add any element tag to the list of pageable items. 
 
 Drop me a message if you have any questions or comments:
 

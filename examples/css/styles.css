@@ -59,6 +59,12 @@ li{
 	overflow: hidden;
 }
 
+#paging_container8 .no_more{
+    background-color: white;
+    color: gray;
+    cursor: default;
+}
+
 .ellipse{
 	float: left;
 }

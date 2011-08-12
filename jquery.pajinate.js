@@ -1,6 +1,6 @@
 ;(function($){
-/*******************************************************************************************/	
-// jquery.pajinate.js - version 0.2
+/*******************************************************************************************/    
+// jquery.pajinate.js - version 0.4
 // A jQuery plugin for paginating through any number of DOM elements
 // 
 // Copyright (c) 2010, Wes Nolte (http://wesnolte.com)
@@ -9,8 +9,8 @@
 // Created: 2010-04-16 | Updated: 2010-04-26
 /*******************************************************************************************/
 
-	$.fn.pajinate = function(options){
-		// Set some state information
+    $.fn.pajinate = function(options){
+        // Set some state information
 		var current_page = 'current_page';
 		var items_per_page = 'items_per_page';
 		
@@ -27,13 +27,15 @@
 			nav_label_first : 'First',
 			nav_label_prev : 'Prev',
 			nav_label_next : 'Next',
-			nav_label_last : 'Last'
+			nav_label_last : 'Last',
+            show_first_last: true
 		};
 		var options = $.extend(defaults,options);
 		var $item_container;
 		var $page_container;
 		var $items;
 		var $nav_panels;
+        var total_page_no_links;
 	
 		return this.each(function(){
 			$page_container = $(this);
@@ -54,8 +56,11 @@
 			// Construct the nav bar
 			var more = '<span class="ellipse more">...</span>';
 			var less = '<span class="ellipse less">...</span>';
+            
+            var first = !options.show_first_last ? '' : '<a class="first_link" href="">'+ options.nav_label_first +'</a>';
+            var last = !options.show_first_last ? '' : '<a class="last_link" href="">'+ options.nav_label_last +'</a>';
 			
-			var navigation_html = '<a class="first_link" href="">'+ options.nav_label_first +'</a>';
+			var navigation_html = first;
 			navigation_html += '<a class="previous_link" href="">'+ options.nav_label_prev +'</a>'+ less;
 			var current_link = 0;
 			while(number_of_pages > current_link){
@@ -63,7 +68,7 @@
 				current_link++;
 			}
 			navigation_html += more + '<a class="next_link" href="">'+ options.nav_label_next +'</a>';
-			navigation_html += '<a class="last_link" href="">'+ options.nav_label_last +'</a>';
+			navigation_html += last;
 			
 			// And add it to the appropriate area of the DOM	
 			$nav_panels = $page_container.find(options.nav_panel_id);			
@@ -89,7 +94,7 @@
 			/* Setup Nav Menu Display */
 			// Page number slices
 			
-			var total_page_no_links = $page_container.children(options.nav_panel_id+':first').children('.page_link').size();
+			total_page_no_links = $page_container.children(options.nav_panel_id+':first').children('.page_link').size();
 			options.num_page_links_to_display = Math.min(options.num_page_links_to_display,total_page_no_links);
 
 			$nav_panels.children('.page_link').hide(); // Hide all the page links
@@ -139,7 +144,8 @@
 			// Goto the required page
 			goto(parseInt(options.start_page));
 			toggleMoreLess();
-			tagNextPrev();
+            if(!options.wrap_around)
+			    tagNextPrev();
 		});
 		
 		function showPrevPage(e){
@@ -149,6 +155,8 @@
 			if($(e).siblings('.active_page').prev('.page_link').length==true){
 				movePageNumbersRight(e,new_page);
 				goto(new_page);
+			}else{
+                goto(total_page_no_links-1);   
 			}
 				
 		};
@@ -247,17 +255,18 @@
 			}			
 		}
 		
-		function tagNextPrev() {
+        /* Add the style class ".no_more" to the first/prev and last/next links to allow custom styling */
+    	function tagNextPrev() {
 			if($nav_panels.children('.last').hasClass('active_page')){
-				$nav_panels.children('.next_link').addClass('no_more');
+				$nav_panels.children('.next_link').add('.last_link').addClass('no_more');
 			} else {
-				$nav_panels.children('.next_link').removeClass('no_more');
+				$nav_panels.children('.next_link').add('.last_link').removeClass('no_more');
 			}
 			
 			if($nav_panels.children('.first').hasClass('active_page')){
-				$nav_panels.children('.previous_link').addClass('no_more');
+				$nav_panels.children('.previous_link').add('.first_link').addClass('no_more');
 			} else {
-				$nav_panels.children('.previous_link').removeClass('no_more');
+				$nav_panels.children('.previous_link').add('.first_link').removeClass('no_more');
 			}
 		}
 		

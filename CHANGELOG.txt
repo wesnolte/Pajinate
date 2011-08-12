@@ -16,3 +16,12 @@ In addition to this the following items were fixed:
 
 	*	Hiding and showing page items was enhanced in that instead of using 'display: block' to restore the visibility of an item, it is instead restored to have it's previous CSS
 		'display' value.
+
+Pajinate 0.4 (released 2011-07-12)
+
+New features thanks to forks mostly.
+
+    *   Style class "no_more" is added to first/prev or last/next links if navigation has hit the beginning or end of the paginated list.
+    *   New plugin option "wrap_around". Navigation continues to the left/right when prev/next is pressed even when beginning/end of pages is reached.
+    *   New plugin option "show_first_last" can be used to prevent the first and last links from loading.
+    *   Examples updated to reflect changes.
