@@ -176,7 +176,7 @@
 			
 		function goto(page_num){
 			
-			var ipp = meta.data(items_per_page);
+			var ipp = parseInt(meta.data(items_per_page));
 			
 			var isLastPage = false;
 			
