@@ -28,7 +28,8 @@
 			nav_label_prev : 'Prev',
 			nav_label_next : 'Next',
 			nav_label_last : 'Last',
-            show_first_last: true
+            show_first_last: true,
+            abort_on_small_lists: false
 		};
 		var options = $.extend(defaults,options);
 		var $item_container;
@@ -41,6 +42,10 @@
 			$page_container = $(this);
 			$item_container = $(this).find(options.item_container_id);
 			$items = $page_container.find(options.item_container_id).children();
+            
+            if (options.abort_on_small_lists && options.items_per_page >= $items.size())
+                return $page_container;
+
 			meta = $page_container;
 			
 			// Initialise meta data
