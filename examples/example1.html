@@ -68,6 +68,13 @@
                     show_first_last: false
 				});
 			});               
+
+        	$(document).ready(function(){
+				$('#paging_container10').pajinate({
+                    items_per_page : 6,
+                    abort_on_small_lists: true
+				});
+			});               
 		</script>
 
 	</head>
@@ -315,6 +322,18 @@
 					 <li><p>Fourteen</p></li> 
 					 <li><p>Fifteen</p></li> 
 					 <li><p>Sixteen</p></li> 
+				</ul>	
+				
+			</div>            
+
+        	<div id="paging_container10" class="container">
+				<h2>Disable On Small Lists</h2>
+				<div class="page_navigation"></div>
+				
+				<ul class="content">
+					 <li><p>One</p></li> 
+					 <li><p>Two</p></li> 
+					 <li><p>Three</p></li> 
 				</ul>	
 				
 			</div>            
