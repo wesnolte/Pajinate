@@ -28,6 +28,7 @@
 			nav_label_prev : 'Prev',
 			nav_label_next : 'Next',
 			nav_label_last : 'Last',
+			nav_order : ["first", "prev", "num", "next", "last"],
             show_first_last: true,
             abort_on_small_lists: false
 		};
@@ -61,19 +62,39 @@
 			// Construct the nav bar
 			var more = '<span class="ellipse more">...</span>';
 			var less = '<span class="ellipse less">...</span>';
-            
             var first = !options.show_first_last ? '' : '<a class="first_link" href="">'+ options.nav_label_first +'</a>';
             var last = !options.show_first_last ? '' : '<a class="last_link" href="">'+ options.nav_label_last +'</a>';
 			
-			var navigation_html = first;
-			navigation_html += '<a class="previous_link" href="">'+ options.nav_label_prev +'</a>'+ less;
-			var current_link = 0;
-			while(number_of_pages > current_link){
-				navigation_html += '<a class="page_link" href="" longdesc="' + current_link +'">'+ (current_link + 1) +'</a>';
-				current_link++;
+			var navigation_html = "";
+			
+			for(var i = 0; i < options.nav_order.length; i++) {
+				switch (options.nav_order[i]) {
+				case "first":
+					navigation_html += first;
+					break;
+				case "last":
+					navigation_html += last;
+					break;
+				case "next":
+					navigation_html += '<a class="next_link" href="">'+ options.nav_label_next +'</a>';
+					break;
+				case "prev":
+					navigation_html += '<a class="previous_link" href="">'+ options.nav_label_prev +'</a>';
+					break;
+				case "num":
+					navigation_html += less;
+					var current_link = 0;
+					while(number_of_pages > current_link){
+						navigation_html += '<a class="page_link" href="" longdesc="' + current_link +'">'+ (current_link + 1) +'</a>';
+						current_link++;
+					}
+					navigation_html += more;
+					break;
+				default:
+					break;
+				}
+					
 			}
-			navigation_html += more + '<a class="next_link" href="">'+ options.nav_label_next +'</a>';
-			navigation_html += last;
 			
 			// And add it to the appropriate area of the DOM	
 			$nav_panels = $page_container.find(options.nav_panel_id);			
