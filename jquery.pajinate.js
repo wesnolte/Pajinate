@@ -30,7 +30,8 @@
 			nav_label_last : 'Last',
 			nav_order : ["first", "prev", "num", "next", "last"],
             show_first_last: true,
-            abort_on_small_lists: false
+            abort_on_small_lists: false,
+            auto_height: false
 		};
 		var options = $.extend(defaults,options);
 		var $item_container;
@@ -95,6 +96,10 @@
 				}
 					
 			}
+			
+			// Find and set the height of container to stop lower flow from jumping
+			if (options.auto_height)
+				containerHeight();
 			
 			// And add it to the appropriate area of the DOM	
 			$nav_panels = $page_container.find(options.nav_panel_id);			
@@ -294,6 +299,18 @@
 			} else {
 				$nav_panels.children('.previous_link').add('.first_link').removeClass('no_more');
 			}
+		}
+		
+		//get tallest element inside container, set's container's height
+		function containerHeight() {
+			tallest = 0;
+			$items.each(function() {
+				thisHeight = $(this).outerHeight();
+				if(thisHeight > tallest) {
+					tallest = thisHeight;
+				}
+			});
+			$item_container.height(tallest);
 		}
 		
 	};
