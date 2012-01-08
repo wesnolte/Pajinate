@@ -74,7 +74,11 @@
                     items_per_page : 6,
                     abort_on_small_lists: true
 				});
-			});               
+			});       
+
+		$(document).ready(function(){
+				$('#paging_container11').pajinate();
+		});      
 		</script>
 
 	</head>
@@ -338,6 +342,32 @@
 				
 			</div>            
 		
+		<div id="paging_container11" class="container">
+				<h2>Navigation with info text</h2>
+				<div class="page_navigation"></div>	
+				<div class="info_text"></div>
+				
+				<ul class="content">
+					 <li><p>One</p></li> 
+					 <li><p>Two</p></li> 
+					 <li><p>Three</p></li> 
+					 <li><p>Four</p></li> 
+					 <li><p>Five</p></li> 
+					 <li><p>Six</p></li> 
+					 <li><p>Seven</p></li> 
+					 <li><p>Eight</p></li> 
+					 <li><p>Nine</p></li> 
+					 <li><p>Ten</p></li> 
+					 <li><p>Eleven</p></li> 
+					 <li><p>Twelve</p></li> 
+					 <li><p>Thirteen</p></li> 
+					 <li><p>Fourteen</p></li> 
+					 <li><p>Fifteen</p></li> 
+					 <li><p>Sixteen</p></li> 
+				</ul>	
+				
+		</div>    
+
 		</div>
 		
 		<script>
