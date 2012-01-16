@@ -15,7 +15,7 @@ div{
 	overflow: auto;
 }
 
-h1, h2 {
+h1, h2, h3 {
 	font-family: Georgia;
 	font-style: italic;
 }
@@ -31,6 +31,15 @@ h1{
 	font-size: 36px;
 	color: white;
 }
+
+h3{
+	color: white;
+	font-size: 20px;
+}
+
+	h3 a{
+		color: #DB5C04;
+	}
 
 li{
 	list-style: none;	
