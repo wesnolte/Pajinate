@@ -92,6 +92,12 @@ Paging through lists of items requires some basic HTML markup, some examples fol
     nav_label_last : The label for the link that navigates to the last paginated page. [default = 'Last']
     wrap_around : Next/prev navigation wraps. [default = false]
     show_first_last : Prevents first & last navigation links from loading if set to false. [default = true]
+    nav_info_id: String (default ".info_text") The ID or CLASSNAME of the element(s) that will host the nav_label_info text 
+    nav_label_info: String (default "Showing {0}-{1} of {2} results") Info text that shows the results that are currently shown and the total number of results in the list. {0}
+    jquery_ui: Boolean (default false), if set to true enables jquery ui themes
+    jquery_ui_active: String (default "ui-state-highlight") extra jquery ui class to add on active_page
+    jquery_ui_default: String (default "ui-state-default") extra jquery ui class to add on all links
+    jquery_ui_disabled: String (default "ui-state-disabled") extra jquery ui class to add on disabled links
 
     A style class called 'no_more' is added to the first/prev links if the first link is active and similarly for the last/next links. This allows you to give these links a "disabled" appearance if required.
 

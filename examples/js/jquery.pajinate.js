@@ -4,9 +4,10 @@
 // A jQuery plugin for paginating through any number of DOM elements
 // 
 // Copyright (c) 2010, Wes Nolte (http://wesnolte.com)
-// Liscensed under the MIT License (MIT-LICENSE.txt)
+// Licensed under the MIT License (MIT-LICENSE.txt)
 // http://www.opensource.org/licenses/mit-license.php
 // Created: 2010-04-16 | Updated: 2010-04-26
+//
 /*******************************************************************************************/
 
     $.fn.pajinate = function(options){
@@ -21,6 +22,7 @@
 			item_container_id : '.content',
 			items_per_page : 10,			
 			nav_panel_id : '.page_navigation',
+			nav_info_id : '.info_text',
 			num_page_links_to_display : 20,			
 			start_page : 0,
 			wrap_around : false,
@@ -28,8 +30,14 @@
 			nav_label_prev : 'Prev',
 			nav_label_next : 'Next',
 			nav_label_last : 'Last',
+			nav_order : ["first", "prev", "num", "next", "last"],
+			nav_label_info : 'Showing {0}-{1} of {2} results',
             show_first_last: true,
-            abort_on_small_lists: false
+            abort_on_small_lists: false,
+            jquery_ui: false,
+            jquery_ui_active: "ui-state-highlight",
+            jquery_ui_default: "ui-state-default",
+            jquery_ui_disabled: "ui-state-disabled"
 		};
 		var options = $.extend(defaults,options);
 		var $item_container;
@@ -37,18 +45,21 @@
 		var $items;
 		var $nav_panels;
         var total_page_no_links;
+        var jquery_ui_default_class = options.jquery_ui ? options.jquery_ui_default : '';
+        var jquery_ui_active_class = options.jquery_ui ? options.jquery_ui_active : '';
+        var jquery_ui_disabled_class = options.jquery_ui ? options.jquery_ui_disabled : '';
 	
 		return this.each(function(){
 			$page_container = $(this);
 			$item_container = $(this).find(options.item_container_id);
 			$items = $page_container.find(options.item_container_id).children();
-            
-            if (options.abort_on_small_lists && options.items_per_page >= $items.size())
+			
+			if (options.abort_on_small_lists && options.items_per_page >= $items.size())
                 return $page_container;
-
+                
 			meta = $page_container;
 			
-			// Initialise meta data
+			// Initialize meta data
 			meta.data(current_page,0);
 			meta.data(items_per_page, options.items_per_page);
 					
@@ -61,19 +72,39 @@
 			// Construct the nav bar
 			var more = '<span class="ellipse more">...</span>';
 			var less = '<span class="ellipse less">...</span>';
-            
-            var first = !options.show_first_last ? '' : '<a class="first_link" href="">'+ options.nav_label_first +'</a>';
-            var last = !options.show_first_last ? '' : '<a class="last_link" href="">'+ options.nav_label_last +'</a>';
+            var first = !options.show_first_last ? '' : '<a class="first_link '+ jquery_ui_default_class +'" href="">'+ options.nav_label_first +'</a>';
+            var last = !options.show_first_last ? '' : '<a class="last_link '+ jquery_ui_default_class +'" href="">'+ options.nav_label_last +'</a>';
 			
-			var navigation_html = first;
-			navigation_html += '<a class="previous_link" href="">'+ options.nav_label_prev +'</a>'+ less;
-			var current_link = 0;
-			while(number_of_pages > current_link){
-				navigation_html += '<a class="page_link" href="" longdesc="' + current_link +'">'+ (current_link + 1) +'</a>';
-				current_link++;
+			var navigation_html = "";
+			
+			for(var i = 0; i < options.nav_order.length; i++) {
+				switch (options.nav_order[i]) {
+				case "first":
+					navigation_html += first;
+					break;
+				case "last":
+					navigation_html += last;
+					break;
+				case "next":
+					navigation_html += '<a class="next_link '+ jquery_ui_default_class +'" href="">'+ options.nav_label_next +'</a>';
+					break;
+				case "prev":
+					navigation_html += '<a class="previous_link '+ jquery_ui_default_class +'" href="">'+ options.nav_label_prev +'</a>';
+					break;
+				case "num":
+					navigation_html += less;
+					var current_link = 0;
+					while(number_of_pages > current_link){
+						navigation_html += '<a class="page_link '+ jquery_ui_default_class +'" href="" longdesc="' + current_link +'">'+ (current_link + 1) +'</a>';
+						current_link++;
+					}
+					navigation_html += more;
+					break;
+				default:
+					break;
+				}
+					
 			}
-			navigation_html += more + '<a class="next_link" href="">'+ options.nav_label_next +'</a>';
-			navigation_html += last;
 			
 			// And add it to the appropriate area of the DOM	
 			$nav_panels = $page_container.find(options.nav_panel_id);			
@@ -88,7 +119,7 @@
 			$nav_panels.children('.ellipse').hide();
 			
 			// Set the active page link styling
-			$nav_panels.find('.previous_link').next().next().addClass('active_page');
+			$nav_panels.find('.previous_link').next().next().addClass('active_page '+ jquery_ui_active_class);
 			
 			/* Setup Page Display */
 			// And hide all pages
@@ -116,7 +147,7 @@
 				e.preventDefault();
 				
 				movePageNumbersRight($(this),0);
-				goto(0);				
+				gotopage(0);				
 			});			
 			
 			// Event handler for 'Last' link
@@ -124,7 +155,7 @@
 				e.preventDefault();
 				var lastPage = total_page_no_links - 1;
 				movePageNumbersLeft($(this),lastPage);
-				goto(lastPage);				
+				gotopage(lastPage);				
 			});			
 			
 			// Event handler for 'Prev' link
@@ -143,11 +174,11 @@
 			// Event handler for each 'Page' link
 			$page_container.find('.page_link').click(function(e){
 				e.preventDefault();
-				goto($(this).attr('longdesc'));
+				gotopage($(this).attr('longdesc'));
 			});			
 			
 			// Goto the required page
-			goto(parseInt(options.start_page));
+			gotopage(parseInt(options.start_page));
 			toggleMoreLess();
             if(!options.wrap_around)
 			    tagNextPrev();
@@ -159,9 +190,9 @@
 			// Check that we aren't on a boundary link
 			if($(e).siblings('.active_page').prev('.page_link').length==true){
 				movePageNumbersRight(e,new_page);
-				goto(new_page);
+				gotopage(new_page);
 			}else if(options.wrap_around){
-                goto(total_page_no_links-1);   
+                gotopage(total_page_no_links-1);   
 			}
 				
 		};
@@ -172,14 +203,14 @@
 			// Check that we aren't on a boundary link
 			if($(e).siblings('.active_page').next('.page_link').length==true){		
 				movePageNumbersLeft(e,new_page);
-				goto(new_page);
+				gotopage(new_page);
 			} else if (options.wrap_around) {
-				goto(0);
+				gotopage(0);
 			}
 				
 		};
 			
-		function goto(page_num){
+		function gotopage(page_num){
 			
 			var ipp = parseInt(meta.data(items_per_page));
 			
@@ -191,17 +222,20 @@
 			// Find the end of the next slice
 			end_on = start_from + ipp;
 			// Hide the current page	
-			$items.hide()
-					.slice(start_from, end_on)
-					.show();
+			var items = $items.hide().slice(start_from, end_on);
+			
+			items.show();
 			
 			// Reassign the active class
-			$page_container.find(options.nav_panel_id).children('.page_link[longdesc=' + page_num +']').addClass('active_page')
+			$page_container.find(options.nav_panel_id).children('.page_link[longdesc=' + page_num +']').addClass('active_page '+ jquery_ui_active_class)
 													 .siblings('.active_page')
-													 .removeClass('active_page');										 
+													 .removeClass('active_page ' + jquery_ui_active_class);										 
 			
 			// Set the current page meta data							
 			meta.data(current_page,page_num);
+			
+			$page_container.find(options.nav_info_id).html(options.nav_label_info.replace("{0}",start_from+1).
+					replace("{1}",start_from + items.length).replace("{2}",$items.length));
 			
 			// Hide the more and/or less indicators
 			toggleMoreLess();
@@ -263,15 +297,15 @@
         /* Add the style class ".no_more" to the first/prev and last/next links to allow custom styling */
     	function tagNextPrev() {
 			if($nav_panels.children('.last').hasClass('active_page')){
-				$nav_panels.children('.next_link').add('.last_link').addClass('no_more');
+				$nav_panels.children('.next_link').add('.last_link').addClass('no_more ' + jquery_ui_disabled_class);
 			} else {
-				$nav_panels.children('.next_link').add('.last_link').removeClass('no_more');
+				$nav_panels.children('.next_link').add('.last_link').removeClass('no_more ' + jquery_ui_disabled_class);
 			}
 			
 			if($nav_panels.children('.first').hasClass('active_page')){
-				$nav_panels.children('.previous_link').add('.first_link').addClass('no_more');
+				$nav_panels.children('.previous_link').add('.first_link').addClass('no_more ' + jquery_ui_disabled_class);
 			} else {
-				$nav_panels.children('.previous_link').add('.first_link').removeClass('no_more');
+				$nav_panels.children('.previous_link').add('.first_link').removeClass('no_more ' + jquery_ui_disabled_class);
 			}
 		}
 		
