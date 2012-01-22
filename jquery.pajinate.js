@@ -13,9 +13,9 @@
     $.fn.pajinate = function(options){
         // Set some state information
         var current_page = 'current_page';
-		var items_per_page = 'items_per_page';
-		
-		var meta;
+        var items_per_page = 'items_per_page';
+        
+        var meta;
 	
 		// Setup default option values
 		var defaults = {
