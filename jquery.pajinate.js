@@ -17,33 +17,34 @@
         
         var meta;
 	
-		// Setup default option values
-		var defaults = {
-			item_container_id : '.content',
-			items_per_page : 10,			
-			nav_panel_id : '.page_navigation',
-			nav_info_id : '.info_text',
-			num_page_links_to_display : 20,			
-			start_page : 0,
-			wrap_around : false,
-			nav_label_first : 'First',
-			nav_label_prev : 'Prev',
-			nav_label_next : 'Next',
-			nav_label_last : 'Last',
-			nav_order : ["first", "prev", "num", "next", "last"],
-			nav_label_info : 'Showing {0}-{1} of {2} results',
+        // Setup default option values
+        var defaults = {
+            item_container_id : '.content',
+            items_per_page : 10,			
+            nav_panel_id : '.page_navigation',
+            nav_info_id : '.info_text',
+            num_page_links_to_display : 20,			
+            start_page : 0,
+            wrap_around : false,
+            nav_label_first : 'First',
+            nav_label_prev : 'Prev',
+            nav_label_next : 'Next',
+            nav_label_last : 'Last',
+            nav_order : ["first", "prev", "num", "next", "last"],
+            nav_label_info : 'Showing {0}-{1} of {2} results',
             show_first_last: true,
             abort_on_small_lists: false,
             jquery_ui: false,
             jquery_ui_active: "ui-state-highlight",
             jquery_ui_default: "ui-state-default",
             jquery_ui_disabled: "ui-state-disabled"
-		};
-		var options = $.extend(defaults,options);
-		var $item_container;
-		var $page_container;
-		var $items;
-		var $nav_panels;
+        };
+        
+        var options = $.extend(defaults,options);
+        var $item_container;
+        var $page_container;
+        var $items;
+        var $nav_panels;
         var total_page_no_links;
         var jquery_ui_default_class = options.jquery_ui ? options.jquery_ui_default : '';
         var jquery_ui_active_class = options.jquery_ui ? options.jquery_ui_active : '';
