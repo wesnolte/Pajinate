@@ -37,7 +37,10 @@
 			jquery_ui: false,
 			jquery_ui_active: "ui-state-highlight",
 			jquery_ui_default: "ui-state-default",
-			jquery_ui_disabled: "ui-state-disabled"
+			jquery_ui_disabled: "ui-state-disabled",
+			bootstrap: false,
+			bootstrap_active: 'active',
+			bootstrap_disabled: 'disabled'
 		};
 
 		var options = $.extend(defaults, options);
@@ -46,9 +49,18 @@
 		var $items;
 		var $nav_panels;
 		var total_page_no_links;
+		//var jquery_ui_active_class = options.jquery_ui ? options.jquery_ui_active : '';
+		//var jquery_ui_disabled_class = options.jquery_ui ? options.jquery_ui_disabled : '';
+		//var bootstrap_active_class = options.bootstrap ? options.bootstrap_active : '';
+		//var bootstrap_disabled_class = options.bootstrap ? options.bootstrap_disabled : '';
+
+		if (options.jquery_ui && options.bootstrap) {
+			throw 'Only one of jquery_ui and bootstrap supported';
+		}
+
+		var active_class = options.jquery_ui ? jquery_ui_active : (options.bootstrap ? options.bootstrap_active : '');
+		var disabled_class = options.jquery_ui ? jquery_ui_disabled : (options.bootstrap ? options.bootstrap_disabled : '');
 		var jquery_ui_default_class = options.jquery_ui ? options.jquery_ui_default : '';
-		var jquery_ui_active_class = options.jquery_ui ? options.jquery_ui_active : '';
-		var jquery_ui_disabled_class = options.jquery_ui ? options.jquery_ui_disabled : '';
 
 		return this.each(function() {
 			$page_container = $(this);
@@ -72,10 +84,28 @@
 			// Construct the nav bar
 			var more = '<span class="ellipse more">...</span>';
 			var less = '<span class="ellipse less">...</span>';
-			var first = !options.show_first_last ? '' : '<a class="first_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_first + '</a>';
-			var last = !options.show_first_last ? '' : '<a class="last_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_last + '</a>';
+			if (options.bootstrap) {
+				more = '<li class="ellipse more disabled"><a href="">...</a></li>';
+				less = '<li class="ellipse less disabled"><a href="">...</a></li>';
+			}
+			var first = '';
+			var last = '';
+			if (options.show_first_last) {
+				if (options.bootstrap) {
+					first = '<li class="first_link"><a href="">' + options.nav_label_first + '</a></li>';
+					last = '<li class="last_link"><a href="">' + options.nav_label_last + '</a></li>';
+				}
+				else {
+					first = '<a class="first_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_first + '</a>';
+					last = '<a class="last_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_last + '</a>';
+				}
+			}
+
 
 			var navigation_html = "";
+			if (options.bootstrap) {
+				navigation_html += '<ul>';
+			}
 
 			for (var i = 0; i < options.nav_order.length; i++) {
 				switch (options.nav_order[i]) {
@@ -86,16 +116,31 @@
 					navigation_html += last;
 					break;
 				case "next":
-					navigation_html += '<a class="next_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_next + '</a>';
+					if (options.bootstrap) {
+						navigation_html += '<li class="next_link"><a href="">' + options.nav_label_next + '</a></li>';
+					}
+					else {
+						navigation_html += '<a class="next_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_next + '</a>';
+					}
 					break;
 				case "prev":
-					navigation_html += '<a class="previous_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_prev + '</a>';
+					if (options.bootstrap) {
+						navigation_html += '<li class="previous_link"><a href="">' + options.nav_label_prev + '</a></li>';
+					}
+					else {
+						navigation_html += '<a class="previous_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_prev + '</a>';
+					}
 					break;
 				case "num":
 					navigation_html += less;
 					var current_link = 0;
 					while (number_of_pages > current_link) {
-						navigation_html += '<a class="page_link ' + jquery_ui_default_class + '" href="" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
+						if (options.bootstrap) {
+							navigation_html += '<li class="page_link" longdesc="' + current_link + '"><a href="">' + (current_link + 1) + '</a>';
+						}
+						else {
+							navigation_html += '<a class="page_link ' + jquery_ui_default_class + '" href="" longdesc="' + current_link + '">' + (current_link + 1) + '</a>';
+						}
 						current_link++;
 					}
 					navigation_html += more;
@@ -104,6 +149,10 @@
 					break;
 				}
 
+			}
+
+			if (options.bootstrap) {
+				navigation_html += '</ul>';
 			}
 
 			// And add it to the appropriate area of the DOM	
@@ -116,10 +165,10 @@
 			});
 
 			// Hide the more/less indicators
-			$nav_panels.children('.ellipse').hide();
+			$nav_panels.find('.ellipse').hide();
 
 			// Set the active page link styling
-			$nav_panels.find('.previous_link').next().next().addClass('active_page ' + jquery_ui_active_class);
+			$nav_panels.find('.previous_link').next().next().addClass('active_page ' + active_class);
 
 			/* Setup Page Display */
 			// And hide all pages
@@ -129,13 +178,13 @@
 
 			/* Setup Nav Menu Display */
 			// Page number slices
-			total_page_no_links = $page_container.children(options.nav_panel_id + ':first').children('.page_link').size();
+			total_page_no_links = $page_container.children(options.nav_panel_id + ':first').find('.page_link').size();
 			options.num_page_links_to_display = Math.min(options.num_page_links_to_display, total_page_no_links);
 
-			$nav_panels.children('.page_link').hide(); // Hide all the page links
+			$nav_panels.find('.page_link').hide(); // Hide all the page links
 			// And only show the number we should be seeing
 			$nav_panels.each(function() {
-				$(this).children('.page_link').slice(0, options.num_page_links_to_display).show();
+				$(this).find('.page_link').slice(0, options.num_page_links_to_display).show();
 			});
 
 			/* Bind the actions to their respective links */
@@ -224,7 +273,7 @@
 			items.show();
 
 			// Reassign the active class
-			$page_container.find(options.nav_panel_id).children('.page_link[longdesc=' + page_num + ']').addClass('active_page ' + jquery_ui_active_class).siblings('.active_page').removeClass('active_page ' + jquery_ui_active_class);
+			$page_container.find(options.nav_panel_id).find('.page_link[longdesc=' + page_num + ']').addClass('active_page ' + active_class).siblings('.active_page').removeClass('active_page ' + active_class);
 
 			// Set the current page meta data							
 			meta.data(current_page, page_num);
@@ -250,7 +299,7 @@
 			if ($current_active_link.siblings('.page_link[longdesc=' + new_page + ']').css('display') == 'none') {
 
 				$nav_panels.each(function() {
-					$(this).children('.page_link').hide() // Hide all the page links
+					$(this).find('.page_link').hide() // Hide all the page links
 					.slice(parseInt(new_page - options.num_page_links_to_display + 1), new_page + 1).show();
 				});
 			}
@@ -265,7 +314,7 @@
 			if ($current_active_link.siblings('.page_link[longdesc=' + new_page + ']').css('display') == 'none') {
 
 				$nav_panels.each(function() {
-					$(this).children('.page_link').hide() // Hide all the page links
+					$(this).find('.page_link').hide() // Hide all the page links
 					.slice(new_page, new_page + parseInt(options.num_page_links_to_display)).show();
 				});
 			}
@@ -276,36 +325,36 @@
 
 		function toggleMoreLess() {
 
-			if (!$nav_panels.children('.page_link:visible').hasClass('last')) {
-				$nav_panels.children('.more').show();
+			if ($nav_panels.find('.page_link').filter('.last').css('display') == 'none') {
+				$nav_panels.find('.more').show();
 			}
 			else {
-				$nav_panels.children('.more').hide();
+				$nav_panels.find('.more').hide();
 			}
 
-			if (!$nav_panels.children('.page_link:visible').hasClass('first')) {
-				$nav_panels.children('.less').show();
+			if ($nav_panels.find('.page_link').filter('.first').css('display') == 'none') {
+				$nav_panels.find('.less').show();
 			}
 			else {
-				$nav_panels.children('.less').hide();
+				$nav_panels.find('.less').hide();
 			}
 		}
 
 		/* Add the style class ".no_more" to the first/prev and last/next links to allow custom styling */
 
 		function tagNextPrev() {
-			if ($nav_panels.children('.last').hasClass('active_page')) {
-				$nav_panels.children('.next_link').add('.last_link').addClass('no_more ' + jquery_ui_disabled_class);
+			if ($nav_panels.find('.last').hasClass('active_page')) {
+				$nav_panels.find('.next_link').add('.last_link').addClass('no_more ' + disabled_class);
 			}
 			else {
-				$nav_panels.children('.next_link').add('.last_link').removeClass('no_more ' + jquery_ui_disabled_class);
+				$nav_panels.find('.next_link').add('.last_link').removeClass('no_more ' + disabled_class);
 			}
 
-			if ($nav_panels.children('.first').hasClass('active_page')) {
-				$nav_panels.children('.previous_link').add('.first_link').addClass('no_more ' + jquery_ui_disabled_class);
+			if ($nav_panels.find('.first').hasClass('active_page')) {
+				$nav_panels.find('.previous_link').add('.first_link').addClass('no_more ' + disabled_class);
 			}
 			else {
-				$nav_panels.children('.previous_link').add('.first_link').removeClass('no_more ' + jquery_ui_disabled_class);
+				$nav_panels.find('.previous_link').add('.first_link').removeClass('no_more ' + disabled_class);
 			}
 		}
 

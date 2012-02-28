@@ -98,6 +98,9 @@ Paging through lists of items requires some basic HTML markup, some examples fol
     jquery_ui_active: String (default "ui-state-highlight") extra jquery ui class to add on active_page
     jquery_ui_default: String (default "ui-state-default") extra jquery ui class to add on all links
     jquery_ui_disabled: String (default "ui-state-disabled") extra jquery ui class to add on disabled links
+    bootstrap: Boolean (default false), if set to true enables Twitter Bootstrap styling
+    bootstrap_active: String (default "active") extra bootstrap class to add on active page
+    bootstrap_disabled: String (default "disabled") extra bootstrap class to add on disabled links
 
     A style class called 'no_more' is added to the first/prev links if the first link is active and similarly for the last/next links. This allows you to give these links a "disabled" appearance if required.
 
