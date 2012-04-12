@@ -211,6 +211,8 @@
 
 		function gotopage(page_num) {
 
+			page_num = parseInt(page_num, 10)
+
 			var ipp = parseInt(meta.data(items_per_page));
 
 			// Find the start of the next slice
