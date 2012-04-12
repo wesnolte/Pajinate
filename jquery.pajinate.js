@@ -237,6 +237,12 @@
 
 			// Add a class to the next or prev links if there are no more pages next or previous to the active page
 			tagNextPrev();
+
+			// check if the onPage callback is available and call it
+			if (typeof(options.onPageDisplayed) !== "undefined" ) {
+				options.onPageDisplayed.call(this, page_num + 1)
+			}
+
 		}
 
 		// Methods to shift the diplayed index of page numbers to the left or right
