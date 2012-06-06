@@ -228,9 +228,15 @@
 
 			// Set the current page meta data							
 			meta.data(current_page, page_num);
-
+			/*########## Ajout de l'option page courante + nombre de pages*/
+	            	var $current_page = parseInt(meta.data(current_page)+1);
+	            	// Get the total number of items
+	            	var total_items = $item_container.children().size();
+	            	// Calculate the number of pages needed
+	            	var $number_of_pages = Math.ceil(total_items / options.items_per_page);
+            		/*##################################################################*/
 			$page_container.find(options.nav_info_id).html(options.nav_label_info.replace("{0}", start_from + 1).
-			replace("{1}", start_from + items.length).replace("{2}", $items.length));
+			replace("{1}", start_from + items.length).replace("{2}", $items.length)).replace("{3}", $current_page).replace("{4}", $number_of_pages));
 
 			// Hide the more and/or less indicators
 			toggleMoreLess();
