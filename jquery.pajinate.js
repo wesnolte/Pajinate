@@ -275,19 +275,20 @@
 
 
 		function toggleMoreLess() {
+			if( $nav_panels.children('.page_link').size() > options.num_page_links_to_display ) {
+				if (!$nav_panels.children('.page_link:visible').hasClass('last')) {
+					$nav_panels.children('.more').show();
+				}
+				else {
+					$nav_panels.children('.more').hide();
+				}
 
-			if (!$nav_panels.children('.page_link:visible').hasClass('last')) {
-				$nav_panels.children('.more').show();
-			}
-			else {
-				$nav_panels.children('.more').hide();
-			}
-
-			if (!$nav_panels.children('.page_link:visible').hasClass('first')) {
-				$nav_panels.children('.less').show();
-			}
-			else {
-				$nav_panels.children('.less').hide();
+				if (!$nav_panels.children('.page_link:visible').hasClass('first')) {
+					$nav_panels.children('.less').show();
+				}
+				else {
+					$nav_panels.children('.less').hide();
+				}
 			}
 		}
 
