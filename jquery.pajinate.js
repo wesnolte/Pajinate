@@ -2,7 +2,7 @@
 (function($) { /*******************************************************************************************/
 	// jquery.pajinate.js - version 0.4
 	// A jQuery plugin for paginating through any number of DOM elements
-	// 
+	//
 	// Copyright (c) 2010, Wes Nolte (http://wesnolte.com)
 	// Licensed under the MIT License (MIT-LICENSE.txt)
 	// http://www.opensource.org/licenses/mit-license.php
@@ -37,7 +37,8 @@
 			jquery_ui: false,
 			jquery_ui_active: "ui-state-highlight",
 			jquery_ui_default: "ui-state-default",
-			jquery_ui_disabled: "ui-state-disabled"
+			jquery_ui_disabled: "ui-state-disabled",
+			change_ol_numbering: true
 		};
 
 		var options = $.extend(defaults, options);
@@ -106,7 +107,7 @@
 
 			}
 
-			// And add it to the appropriate area of the DOM	
+			// And add it to the appropriate area of the DOM
 			$nav_panels = $page_container.find(options.nav_panel_id);
 			$nav_panels.html(navigation_html).each(function() {
 
@@ -124,7 +125,7 @@
 			/* Setup Page Display */
 			// And hide all pages
 			$items.hide();
-			// Show the first page			
+			// Show the first page
 			$items.slice(0, meta.data(items_per_page)).show();
 
 			/* Setup Nav Menu Display */
@@ -218,15 +219,20 @@
 
 			// Find the end of the next slice
 			end_on = start_from + ipp;
-			// Hide the current page	
+			// Hide the current page
 			var items = $items.hide().slice(start_from, end_on);
+
+			// Change OL -list start numbering
+			if (options.change_ol_numbering && items.parent().get(0).tagName == 'OL') {
+				items.parent().attr('start', start_from + 1);
+			}
 
 			items.show();
 
 			// Reassign the active class
 			$page_container.find(options.nav_panel_id).children('.page_link[longdesc=' + page_num + ']').addClass('active_page ' + jquery_ui_active_class).siblings('.active_page').removeClass('active_page ' + jquery_ui_active_class);
 
-			// Set the current page meta data							
+			// Set the current page meta data
 			meta.data(current_page, page_num);
 
 			$page_container.find(options.nav_info_id).html(options.nav_label_info.replace("{0}", start_from + 1).
