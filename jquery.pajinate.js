@@ -223,6 +223,13 @@
 
 			items.show();
 
+			// fire callback for item displayed if provided
+			if (typeof options.onItemDisplayed !== 'undefined') {
+				$.each(items, function(index, item) {
+					options.onItemDisplayed(item, index + start_from + 1, index + 1);
+				});
+			}
+
 			// Reassign the active class
 			$page_container.find(options.nav_panel_id).children('.page_link[longdesc=' + page_num + ']').addClass('active_page ' + jquery_ui_active_class).siblings('.active_page').removeClass('active_page ' + jquery_ui_active_class);
 
