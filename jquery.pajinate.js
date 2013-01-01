@@ -129,7 +129,7 @@
 
 			/* Setup Nav Menu Display */
 			// Page number slices
-			total_page_no_links = $page_container.children(options.nav_panel_id + ':first').children('.page_link').size();
+			total_page_no_links = $page_container.find(options.nav_panel_id + ':first').children('.page_link').size();
 			options.num_page_links_to_display = Math.min(options.num_page_links_to_display, total_page_no_links);
 
 			$nav_panels.children('.page_link').hide(); // Hide all the page links
