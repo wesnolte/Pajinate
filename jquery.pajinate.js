@@ -238,7 +238,7 @@
 	            	var $number_of_pages = Math.ceil(total_items / options.items_per_page);
             		/*##################################################################*/
 			$page_container.find(options.nav_info_id).html(options.nav_label_info.replace("{0}", start_from + 1).
-			replace("{1}", start_from + items.length).replace("{2}", $items.length)).replace("{3}", $current_page).replace("{4}", $number_of_pages));
+			replace("{1}", start_from + items.length).replace("{2}", $items.length).replace("{3}", $current_page).replace("{4}", $number_of_pages));
 
 			// Hide the more and/or less indicators
 			toggleMoreLess();
