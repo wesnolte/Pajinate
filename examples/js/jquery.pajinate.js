@@ -1,6 +1,6 @@
 ;
 (function($) { /*******************************************************************************************/
-    // jquery.pajinate.js - version 0.4
+	// jquery.pajinate.js - version 0.4
 	// A jQuery plugin for paginating through any number of DOM elements
 	// 
 	// Copyright (c) 2010, Wes Nolte (http://wesnolte.com)
@@ -211,6 +211,8 @@
 
 		function gotopage(page_num) {
 
+			page_num = parseInt(page_num, 10)
+
 			var ipp = parseInt(meta.data(items_per_page));
 
 			// Find the start of the next slice
@@ -228,15 +230,27 @@
 
 			// Set the current page meta data							
 			meta.data(current_page, page_num);
-
+			/*########## Ajout de l'option page courante + nombre de pages*/
+	            	var $current_page = parseInt(meta.data(current_page)+1);
+	            	// Get the total number of items
+	            	var total_items = $item_container.children().size();
+	            	// Calculate the number of pages needed
+	            	var $number_of_pages = Math.ceil(total_items / options.items_per_page);
+            		/*##################################################################*/
 			$page_container.find(options.nav_info_id).html(options.nav_label_info.replace("{0}", start_from + 1).
-			replace("{1}", start_from + items.length).replace("{2}", $items.length));
+			replace("{1}", start_from + items.length).replace("{2}", $items.length).replace("{3}", $current_page).replace("{4}", $number_of_pages));
 
 			// Hide the more and/or less indicators
 			toggleMoreLess();
 
 			// Add a class to the next or prev links if there are no more pages next or previous to the active page
 			tagNextPrev();
+
+			// check if the onPage callback is available and call it
+			if (typeof(options.onPageDisplayed) !== "undefined" ) {
+				options.onPageDisplayed.call(this, page_num + 1)
+			}
+
 		}
 
 		// Methods to shift the diplayed index of page numbers to the left or right
