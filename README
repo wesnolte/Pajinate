@@ -99,6 +99,7 @@ Paging through lists of items requires some basic HTML markup, some examples fol
     jquery_ui_default: String (default "ui-state-default") extra jquery ui class to add on all links
     jquery_ui_disabled: String (default "ui-state-disabled") extra jquery ui class to add on disabled links
     onPageDisplayed: Function(pageNumber), This function will be called if it exists and passed the current page number.
+    scroll_viewport: Boolean (default false), if true scroll the viewport to the element on which you called pajinate() when page nav is used.
 
     A style class called 'no_more' is added to the first/prev links if the first link is active and similarly for the last/next links. This allows you to give these links a "disabled" appearance if required.
 
