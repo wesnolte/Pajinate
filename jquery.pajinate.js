@@ -180,7 +180,7 @@
 				// Bind an animated viewpoint scroll action for all page links.
 				$page_container.find('.first_link, .last_link, .previous_link, \
 						.next_link, .page_link').click(function(e) {
-					$('body').animate({scrollTop:$page_container.offset().top}, 500);
+					$('html, body').animate({scrollTop:$page_container.offset().top}, 500);
 				});
 			}
 
