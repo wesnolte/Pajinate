@@ -34,6 +34,7 @@
 			nav_label_info: 'Showing {0}-{1} of {2} results',
 			show_first_last: true,
 			abort_on_small_lists: false,
+			scroll_viewport: false,
 			jquery_ui: false,
 			jquery_ui_active: "ui-state-highlight",
 			jquery_ui_default: "ui-state-default",
@@ -174,6 +175,14 @@
 				e.preventDefault();
 				gotopage($(this).attr('longdesc'));
 			});
+
+			if (options.scroll_viewport) {
+				// Bind an animated viewpoint scroll action for all page links.
+				$page_container.find('.first_link, .last_link, .previous_link, \
+						.next_link, .page_link').click(function(e) {
+					$('html, body').animate({scrollTop:$page_container.offset().top}, 500);
+				});
+			}
 
 			// Goto the required page
 			gotopage(parseInt(options.start_page));
