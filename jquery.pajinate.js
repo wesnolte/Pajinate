@@ -33,6 +33,7 @@
 			nav_order: ["first", "prev", "num", "next", "last"],
 			nav_label_info: 'Showing {0}-{1} of {2} results',
 			show_first_last: true,
+			show_prev_next: true,
 			abort_on_small_lists: false,
 			jquery_ui: false,
 			jquery_ui_active: "ui-state-highlight",
@@ -74,7 +75,9 @@
 			var less = '<span class="ellipse less">...</span>';
 			var first = !options.show_first_last ? '' : '<a class="first_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_first + '</a>';
 			var last = !options.show_first_last ? '' : '<a class="last_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_last + '</a>';
-
+			var prev = !options.show_prev_next ? '' : '<a class="prev_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_prev + '</a>';
+			var next = !options.show_prev_next ? '' : '<a class="next_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_next + '</a>';
+			
 			var navigation_html = "";
 
 			for (var i = 0; i < options.nav_order.length; i++) {
@@ -86,10 +89,10 @@
 					navigation_html += last;
 					break;
 				case "next":
-					navigation_html += '<a class="next_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_next + '</a>';
+					navigation_html += next;
 					break;
 				case "prev":
-					navigation_html += '<a class="previous_link ' + jquery_ui_default_class + '" href="">' + options.nav_label_prev + '</a>';
+					navigation_html += prev;
 					break;
 				case "num":
 					navigation_html += less;
