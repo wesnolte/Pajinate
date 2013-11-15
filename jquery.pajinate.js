@@ -24,7 +24,7 @@
 			nav_panel_id: '.page_navigation',
 			nav_info_id: '.info_text',
 			num_page_links_to_display: 20,
-            show_paginate_if_one: true,
+                        show_paginate_if_one: true,
 			start_page: 0,
 			wrap_around: false,
 			nav_label_first: 'First',
