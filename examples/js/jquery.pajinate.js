@@ -24,6 +24,7 @@
 			nav_panel_id: '.page_navigation',
 			nav_info_id: '.info_text',
 			num_page_links_to_display: 20,
+            show_paginate_if_one: true,
 			start_page: 0,
 			wrap_around: false,
 			nav_label_first: 'First',
@@ -69,6 +70,11 @@
 			// Calculate the number of pages needed
 			var number_of_pages = Math.ceil(total_items / options.items_per_page);
 
+			// hide navigation if number_of_pages == 1
+			if(number_of_pages==1 && options.show_navigation_if_one){
+				$(nav_panel_id).hide();
+			}
+			
 			// Construct the nav bar
 			var more = '<span class="ellipse more">...</span>';
 			var less = '<span class="ellipse less">...</span>';
