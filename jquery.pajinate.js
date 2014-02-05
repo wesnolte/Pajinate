@@ -135,7 +135,7 @@
 			$nav_panels.children('.page_link').hide(); // Hide all the page links
 			// And only show the number we should be seeing
 			$nav_panels.each(function() {
-				$(this).children('.page_link').slice(0, options.num_page_links_to_display).show();
+				$(this).children('.page_link').slice(options.start_page, options.start_page + options.num_page_links_to_display).show();
 			});
 
 			/* Bind the actions to their respective links */
