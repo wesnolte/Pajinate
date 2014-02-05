@@ -55,7 +55,11 @@
 			$item_container = $(this).find(options.item_container_id);
 			$items = $page_container.find(options.item_container_id).children();
 
-			if (options.abort_on_small_lists && options.items_per_page >= $items.size()) return $page_container;
+			if (options.abort_on_small_lists && (options.items_per_page >= $items.size())){
+                        $nav_panels = $page_container.find(options.nav_panel_id);			
+			$nav_panels.html('');
+                        return $page_container;
+			}
 
 			meta = $page_container;
 
