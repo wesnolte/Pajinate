@@ -216,10 +216,10 @@
 			var ipp = parseInt(meta.data(items_per_page));
 
 			// Find the start of the next slice
-			start_from = page_num * ipp;
+			var start_from = page_num * ipp;
 
 			// Find the end of the next slice
-			end_on = start_from + ipp;
+			var end_on = start_from + ipp;
 			// Hide the current page	
 			var items = $items.hide().slice(start_from, end_on);
 
