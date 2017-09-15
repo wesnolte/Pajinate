@@ -53,9 +53,12 @@
 		return this.each(function() {
 			$page_container = $(this);
 			$item_container = $(this).find(options.item_container_id);
-			$items = $page_container.find(options.item_container_id).children();
+			$items = $item_container.children();
 
-			if (options.abort_on_small_lists && options.items_per_page >= $items.size()) return $page_container;
+            if (options.abort_on_small_lists && options.items_per_page >= $items.size()){
+                $page_container.find(options.nav_panel_id).html('');
+                return $page_container;
+            }
 
 			meta = $page_container;
 
@@ -64,7 +67,7 @@
 			meta.data(items_per_page, options.items_per_page);
 
 			// Get the total number of items
-			var total_items = $item_container.children().size();
+			var total_items = $items.size();
 
 			// Calculate the number of pages needed
 			var number_of_pages = Math.ceil(total_items / options.items_per_page);
