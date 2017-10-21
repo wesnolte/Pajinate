@@ -55,7 +55,7 @@
 			$item_container = $(this).find(options.item_container_id);
 			$items = $page_container.find(options.item_container_id).children();
 
-			if (options.abort_on_small_lists && options.items_per_page >= $items.size()) return $page_container;
+			if (options.abort_on_small_lists && options.items_per_page >= $items.length()) return $page_container;
 
 			meta = $page_container;
 
@@ -64,7 +64,7 @@
 			meta.data(items_per_page, options.items_per_page);
 
 			// Get the total number of items
-			var total_items = $item_container.children().size();
+			var total_items = $item_container.children().length;
 
 			// Calculate the number of pages needed
 			var number_of_pages = Math.ceil(total_items / options.items_per_page);
@@ -129,7 +129,7 @@
 
 			/* Setup Nav Menu Display */
 			// Page number slices
-			total_page_no_links = $page_container.find(options.nav_panel_id + ':first').children('.page_link').size();
+			total_page_no_links = $page_container.find(options.nav_panel_id + ':first').children('.page_link').length;
 			options.num_page_links_to_display = Math.min(options.num_page_links_to_display, total_page_no_links);
 
 			$nav_panels.children('.page_link').hide(); // Hide all the page links
@@ -233,7 +233,7 @@
 			/*########## Ajout de l'option page courante + nombre de pages*/
 	            	var $current_page = parseInt(meta.data(current_page)+1);
 	            	// Get the total number of items
-	            	var total_items = $item_container.children().size();
+	            	var total_items = $item_container.children().length;
 	            	// Calculate the number of pages needed
 	            	var $number_of_pages = Math.ceil(total_items / options.items_per_page);
             		/*##################################################################*/
